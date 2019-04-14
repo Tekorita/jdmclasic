@@ -1,0 +1,38 @@
+{% extends 'base/base.html' %}
+{% block content %}
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Marca</th>
+            <th scope="col">Modelo</th>
+            <th scope="col">Tipo</th>
+            <th scope="col">Color</th>
+            <th scope="col">Transmision</th>
+            <th scope="col">Año</th>
+            <th scope="col">Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% if object_list %}
+        {% for jdm in object_list %}
+        <tr>
+            <th scope="row">{{ jdm.id }}</th>
+            <td>{{ jdm.marca }}</td>
+            <td>{{ jdm.modelo }}</td>
+            <td>{{ jdm.tipo }}</td>
+            <td>{{ jdm.color }}</td>
+            <td>{{ jdm.transmision }}</td>
+            <td>{{ jdm.año }}</td>
+            <td>
+                <a class = "btn btn-primary" href="{% url 'auto_editar' jdm.id %}">Editar</a>
+                <a class = "btn btn-danger" href="{% url 'auto_eliminar' jdm.id %}">Eliminar</a>
+            </td>
+        </tr>
+        {% endfor %}
+		{% else %}
+			<h1>No hay registro de mascotas</h1>
+		{% endif %}
+    </tbody>
+</table>
+{% endblock %}
