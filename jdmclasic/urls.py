@@ -18,6 +18,7 @@ from django.urls import path, include
 #from django.contrib.auth.urls import login, logout_then_login, password_reset, password_reset_done, password_reset_confirm, password_reset_complete
 #from django.contrib.auth.views import login, logout_then_login, password_reset, password_reset_done, password_reset_confirm, password_reset_complete
 from django.contrib.auth import views as auth_views
+#from django.contrib.auth.views import login, logout_then_login, password_reset, password_reset_done, password_reset_confirm, password_reset_complete
 
 urlpatterns = [
     path('admin/', admin.site.urls),
