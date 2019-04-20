@@ -15,11 +15,22 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+#from django.contrib.auth.urls import login, logout_then_login, password_reset, password_reset_done, password_reset_confirm, password_reset_complete
 #from django.contrib.auth.views import login, logout_then_login, password_reset, password_reset_done, password_reset_confirm, password_reset_complete
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('auto/', include('apps.jdm.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
+    path('accounts/login/', [name='login']),
+    path('accounts/logout/', [name='logout']),
+    path('accounts/password_change/', [name='password_change']),
+    path('accounts/password_change/done/', [name='password_change_done']),
+    path('accounts/password_reset/', [name='password_reset']),
+    path('accounts/password_reset/done/', [name='password_reset_done']),
+    path('accounts/reset/<uidb64>/<token>/', [name='password_reset_confirm']),
+    path('accounts/reset/done/', [name='password_reset_complete']),
+    path('change-password/', auth_views.PasswordChangeView.as_view()),
 ]
 
