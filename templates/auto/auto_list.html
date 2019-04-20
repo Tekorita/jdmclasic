@@ -1,7 +1,9 @@
 {% extends 'base/base.html' %}
 {% block content %}
 
-<h1>{{ user.username }} hola</h1>
+{% if user.is_authenticated %}
+<h1>hola {{ user.username }}</h1>
+<a href="{% url 'logout' %}">Cerrar Sesion</a>
 
 <table class="table">
     <thead class="thead-dark">
@@ -38,4 +40,7 @@
 		{% endif %}
     </tbody>
 </table>
+{% else %}
+    <p>Por favor inicie sesión para ver esta página.</p>
+{% endif %}
 {% endblock %}
