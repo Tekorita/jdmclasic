@@ -1,43 +1,31 @@
-from django.shortcuts import render
-from django.http import HttpResponse
+from django.shortcuts import render, redirect
+from django.contrib.auth import login, authenticate
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm
-from django.views.generic import CreateView
-from django.urls import reverse_lazy
+from django.http import HttpResponse
+from django.urls import reverse_lazy, reverse
+from django.views.generic import CreateView, TemplateView
+from apps.usuario.forms import SignUpForm
 
-from apps.usuario.forms import RegistroForm
+#from .models import Perfil
 
-# Create your views here.
+#from .forms import SignUpForm
 
-def ver_datos(request):
-	if request.method == 'POST':
-		form = RegistroForm(request.POST)
-				
-	return HttpResponse(request)
-	#else:
-	#	form = MascotaForm()
-	#return render(request, 'mascota/mascota_form.html', {'form':form})
-
-	#if request.method == 'POST':
-	#	form = MascotaForm(request.POST)
-	#	if form.is_valid():
-	#		form.save()
-	#	return redirect('mascota_listar')
-	#else:
-	#	form = MascotaForm()
-	#return render(request, 'mascota/mascota_form.html', {'form':form})
-
-class RegistroUsuario(CreateView):	
-	model = User
-	form_class = AutoForm
-	template_name = "usuario/registrar.html"
-	success_url = reverse_lazy('auto_listar')	
-		#form_class = UserCreationForm
-	#form_class = RegistroForm
-	#success_url = reverse_lazy('auto_listar')
-
-class AutoCreate(CreateView):
-    model = Auto
-    form_class = AutoForm
-    template_name = 'auto/auto_form.html'
-    success_url = reverse_lazy('auto_listar')
+class SignUpView(CreateView):
+    model = User
+    form_class = SignUpForm
+    template_name = 'usuario/registrar.html'
+    #succes_url = reverse_lazy('mascota_listar')
+	
+    def form_valid(self, form):
+        '''
+        En esta parte, si el formulario es valido guardamos lo que se obtiene de él y usamos authenticate para que el usuario incie sesión luego de haberse registrado y lo redirigimos al index
+        '''
+        form.save()
+        usuario = form.cleaned_data.get('username')
+        password = form.cleaned_data.get('password1')
+        usuario = authenticate(username=usuario, password=password)
+        login(self.request, usuario)
+        return redirect('login')
+#succes_url = reverse_lazy('mascota_listar')
+#class BienvenidaView(TemplateView):
+#  template_name = 'perfiles/bienvenida.html'
