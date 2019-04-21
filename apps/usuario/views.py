@@ -29,7 +29,15 @@ def ver_datos(request):
 
 class RegistroUsuario(CreateView):	
 	model = User
-	template_name = "usuario/registrar.html"	
+	form_class = AutoForm
+	template_name = "usuario/registrar.html"
+	success_url = reverse_lazy('auto_listar')	
 		#form_class = UserCreationForm
-	form_class = RegistroForm
+	#form_class = RegistroForm
 	#success_url = reverse_lazy('auto_listar')
+
+class AutoCreate(CreateView):
+    model = Auto
+    form_class = AutoForm
+    template_name = 'auto/auto_form.html'
+    success_url = reverse_lazy('auto_listar')
