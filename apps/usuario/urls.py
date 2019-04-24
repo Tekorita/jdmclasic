@@ -4,5 +4,5 @@ from apps.usuario.views import SignUpView
 
 urlpatterns = [
 	#path('registrar', ver_datos, name='registrar'),
-	path('regir', SignUpView.as_view(), name='sign_up'),
+	path('registrar', SignUpView.as_view(), name='sign_up'),
 ]
