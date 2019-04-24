@@ -4,5 +4,6 @@
     {% csrf_token %}
     <h3>Deseas eliminar el vehiculo {{ object.modelo }}</h3>
     <button class="btn btn-danger" type="submit">Si, Eliminar</button>
-
+    <button class="btn btn-default" href="{% url 'auto_listar' %}" >Cancelar</button>
+</form>
 {% endblock %}
